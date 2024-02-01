@@ -2,7 +2,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      BUSQUEDA POKEMON!
+      POKEDEX
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -52,6 +52,51 @@
       </ion-card>
     </ion-card-content>
   </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">ID del Item</ion-label>
+        <ion-input type="number" [(ngModel)]="itemId"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="searchItemById()">
+        <ion-icon slot="start" name="search"></ion-icon>
+        Buscar por ID
+      </ion-button>
+      <ion-card *ngIf="itemResultById">
+        <ion-card-header>
+          {{ itemResultById.name }}
+        </ion-card-header>
+        <ion-card-content>
+          <img [src]="itemResultById.sprites.default" alt="Item Sprite" style="width: 5rem;">
+          <p>ID: {{ itemResultById.id }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre del Item</ion-label>
+        <ion-input [(ngModel)]="itemName"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="searchItemByName()">
+        <ion-icon slot="start" name="search"></ion-icon>
+        Buscar por Nombre
+      </ion-button>
+      <ion-card *ngIf="itemResultByName">
+        <ion-card-header>
+          {{ itemResultByName.name }}
+        </ion-card-header>
+        <ion-card-content>
+          <img [src]="itemResultByName.sprites.default" alt="Item Sprite"  style="width: 5rem;">
+          <p>ID: {{ itemResultByName.id }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
 
 

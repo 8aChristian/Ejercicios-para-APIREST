@@ -8,53 +8,31 @@ import { PokeapiService } from '../Services/apiservice.service';
 })
 export class HomePage {
 
-  pokemonId: number = 0;
-  pokemonName: string = "";
-  pokemonResultById: any;
-  pokemonResultByName: any;
-  itemId: number = 0;
-  itemName: string = "";
-  itemResultById: any;
-  itemResultByName: any;
+  searchTerm: string = "";
+  pokemonResult: any;
+
   constructor(private api: PokeapiService) {}
 
-  searchPokemonById() {
-    if (this.pokemonId) {
-      this.api.getPokemonID(this.pokemonId).subscribe(response => {
-        this.pokemonResultById = response;
-      }, error => {
-        console.log(error);
-      });
-    }
-  }
-
-  searchPokemonByName() {
-    if (this.pokemonName) {
-      this.api.getPokemonName(this.pokemonName).subscribe(response => {
-        this.pokemonResultByName = response;
-      }, error => {
-        console.log(error);
-      });
-    }
-  }
-
-  searchItemById() {
-    if (this.itemId) {
-      this.api.getItemID(this.itemId).subscribe(response => {
-        this.itemResultById = response;
-      }, error => {
-        console.log(error);
-      });
-    }
-  }
-
-  searchItemByName() {
-    if (this.itemName) {
-      this.api.getItemName(this.itemName).subscribe(response => {
-        this.itemResultByName = response;
-      }, error => {
-        console.log(error);
-      });
+  searchPokemon() {
+    if (this.searchTerm) {
+      // Verificar si el término es un número (ID) o una cadena (nombre)
+      const searchTermNumber = parseInt(this.searchTerm, 10);
+      
+      if (!isNaN(searchTermNumber)) {
+        // Buscar por ID
+        this.api.getPokemonID(searchTermNumber).subscribe(response => {
+          this.pokemonResult = response;
+        }, error => {
+          console.log(error);
+        });
+      } else {
+        // Buscar por nombre
+        this.api.getPokemonName(this.searchTerm).subscribe(response => {
+          this.pokemonResult = response;
+        }, error => {
+          console.log(error);
+        });
+      }
     }
   }
 }
